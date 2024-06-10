@@ -71,11 +71,13 @@ sheet3.set_column("B:E", 20, fmt_currency)
 writer.close()
 
 analysis_link = "https://finance.yahoo.com/quote/" + ticker + "/analysis/"
-WACC_link1 = "https://finbox.com/NASDAQGS:" + ticker + "/models/wacc/"
-WACC_link2 = "https://finbox.com/NYSE:" + ticker + "/models/wacc/"
+WACC_NASDAQ = "https://finbox.com/NASDAQGS:" + ticker + "/models/wacc/"
+WACC_NYSE = "https://finbox.com/NYSE:" + ticker + "/models/wacc/"
 
 
 if open_browser == "Y":
     webbrowser.open(analysis_link)
-    webbrowser.open(WACC_link1)
-    webbrowser.open(WACC_link2)
+    if len(ticker) >= 4:
+        webbrowser.open(WACC_NASDAQ)
+    else:
+        webbrowser.open(WACC_NYSE)

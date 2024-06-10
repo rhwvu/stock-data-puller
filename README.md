@@ -8,7 +8,7 @@ Features:
 - [x] Puts into a data.xlsx Excel file to be read by other Excel files (such as one for a DCF)
 - [ ] Probably append data to an existing Excel file instead of making a new one and overwriting it
 - [ ] Scrape WACC and Yahoo Finance analyst numbers (currently just opens the websites to be manually grabbed)
-	- [ ] Otherwise find a way to only open one finbox link (currently open 2)
+	- [X] Otherwise find a way to only open one finbox link (currently approximated with ticker length)
 - [ ] Make my own DCF sheet (currently using a proprietary one)
 - [ ] Allow for more expense names as needed
 - [ ] Allow for companies with no Cost of Revenue (ex: ELV)
