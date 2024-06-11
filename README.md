@@ -11,5 +11,6 @@ Features:
 	- [X] Otherwise find a way to only open one finbox link (currently approximated with ticker length, can be improved)
 - [ ] Make my own DCF sheet (currently using a proprietary one)
 - [ ] Allow for more expense names as needed
-- [ ] Allow for companies with no Cost of Revenue (ex: ELV)
+- [X] Allow for companies with no Cost of Revenue
+- [ ] Need to figure out how to get "Loss Adjustment Expense" expense (ex: ELV)
 - [ ] Possibly change the way companies with less than 4 years of Yahoo finances are put into Excel

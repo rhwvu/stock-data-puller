@@ -30,8 +30,8 @@ result = pd.concat([income, balance, cashflow])
 resultT = result.transpose()
 
 # List of stats of interest
-stat_list = ["Total Revenue", "Cost Of Revenue", "Other Income Expense", "Reconciled Depreciation", "Capital Expenditure", "Working Capital", "Cash Cash Equivalents And Short Term Investments"]
-expense_list = ["Research And Development", "Selling General And Administration", "Other Operating Expenses"]
+stat_list = ["Total Revenue", "Other Income Expense", "Reconciled Depreciation", "Capital Expenditure", "Working Capital", "Cash Cash Equivalents And Short Term Investments"]
+expense_list = ["Research And Development", "Selling General And Administration", "Other Operating Expenses", "Loss Adjustment Expense", "Special Income Charges"]
 debt_list = ["Current Debt And Capital Lease Obligation", "Long Term Debt And Capital Lease Obligation"]
 
 # Clean up results with the stat_list, drop empty years, then transpose again, sort by year
@@ -40,23 +40,30 @@ clean = clean[clean["Total Revenue"].notna()]
 cleanT = clean.transpose()
 cleanT = cleanT.sort_index(axis=1, ascending=True)
 
-other = resultT[resultT.columns.intersection(expense_list)]
-otherT = other.transpose()
-otherT = otherT.sort_index(axis=1, ascending=True)
+expenses = resultT[resultT.columns.intersection(expense_list)]
+expensesT = expenses.transpose()
+expensesT = expensesT.sort_index(axis=1, ascending=True)
 
 debt = resultT[resultT.columns.intersection(debt_list)]
 debtT = debt.transpose()
 debtT = debtT.sort_index(axis=1, ascending=True)
 
+cogs = resultT[resultT.columns.intersection(["Cost Of Revenue"])]
+cogsT = cogs.transpose()
+cogsT = cogsT.sort_index(axis=1, ascending=True)
+
 # Write the three separate datasets to Excel sheets
 cleanT.to_excel(writer, sheet_name = "data")
 sheet1 = writer.sheets["data"]
 
-otherT.to_excel(writer, sheet_name = "data2")
+expensesT.to_excel(writer, sheet_name = "data2")
 sheet2 = writer.sheets["data2"]
 
 debtT.to_excel(writer, sheet_name = "data3")
 sheet3 = writer.sheets["data3"]
+
+cogsT.to_excel(writer, sheet_name = "data4")
+sheet4 = writer.sheets["data4"]
 
 # Put everything into a currency format in case user wants to read data.xlsx directly
 fmt_currency = writer.book.add_format({"num_format" : "$#,##0" ,"bold" :False})
@@ -68,6 +75,9 @@ sheet2.set_column("B:E", 20, fmt_currency)
 
 sheet3.set_column("A:A", 30)
 sheet3.set_column("B:E", 20, fmt_currency)
+
+sheet4.set_column("A:A", 30)
+sheet4.set_column("B:E", 20, fmt_currency)
 
 # Close ExcelWriter
 writer.close()
@@ -85,3 +95,6 @@ if open_browser == "Y":
         webbrowser.open(WACC_NASDAQ)
     else:
         webbrowser.open(WACC_NYSE)
+        
+# To allow for any errors to be read if run like an executable
+input("...")
