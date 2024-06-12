@@ -14,3 +14,5 @@ Features:
 - [X] Allow for companies with no Cost of Revenue
 - [ ] Need to figure out how to get "Loss Adjustment Expense" expense (ex: ELV)
 - [ ] Possibly change the way companies with less than 4 years of Yahoo finances are put into Excel
+- [ ] Split off all variables into separate sheets for the best variablility
+- [ ] Deal with removing NA values for each one individually

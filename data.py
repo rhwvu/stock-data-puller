@@ -30,7 +30,7 @@ result = pd.concat([income, balance, cashflow])
 resultT = result.transpose()
 
 # List of stats of interest
-stat_list = ["Total Revenue", "Other Income Expense", "Reconciled Depreciation", "Capital Expenditure", "Working Capital", "Cash Cash Equivalents And Short Term Investments"]
+stat_list = ["Total Revenue", "Reconciled Depreciation", "Capital Expenditure", "Working Capital", "Cash Cash Equivalents And Short Term Investments"]
 expense_list = ["Research And Development", "Selling General And Administration", "Other Operating Expenses", "Loss Adjustment Expense", "Special Income Charges"]
 debt_list = ["Current Debt And Capital Lease Obligation", "Long Term Debt And Capital Lease Obligation"]
 
@@ -52,18 +52,25 @@ cogs = resultT[resultT.columns.intersection(["Cost Of Revenue"])]
 cogsT = cogs.transpose()
 cogsT = cogsT.sort_index(axis=1, ascending=True)
 
+other = resultT[resultT.columns.intersection(["Other Income Expense"])]
+otherT = other.transpose()
+otherT = otherT.sort_index(axis=1, ascending=True)
+
 # Write the three separate datasets to Excel sheets
-cleanT.to_excel(writer, sheet_name = "data")
-sheet1 = writer.sheets["data"]
+cleanT.to_excel(writer, sheet_name = "main")
+sheet1 = writer.sheets["main"]
 
-expensesT.to_excel(writer, sheet_name = "data2")
-sheet2 = writer.sheets["data2"]
+expensesT.to_excel(writer, sheet_name = "expenses")
+sheet2 = writer.sheets["expenses"]
 
-debtT.to_excel(writer, sheet_name = "data3")
-sheet3 = writer.sheets["data3"]
+debtT.to_excel(writer, sheet_name = "debt")
+sheet3 = writer.sheets["debt"]
 
-cogsT.to_excel(writer, sheet_name = "data4")
-sheet4 = writer.sheets["data4"]
+cogsT.to_excel(writer, sheet_name = "COGS")
+sheet4 = writer.sheets["COGS"]
+
+otherT.to_excel(writer, sheet_name = "other")
+sheet4 = writer.sheets["other"]
 
 # Put everything into a currency format in case user wants to read data.xlsx directly
 fmt_currency = writer.book.add_format({"num_format" : "$#,##0" ,"bold" :False})
