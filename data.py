@@ -104,4 +104,5 @@ if open_browser == "Y":
         webbrowser.open(WACC_NYSE)
         
 # To allow for any errors to be read if run like an executable
-input("...")
+if config[3].strip().upper() == "Y":
+    input("...")
