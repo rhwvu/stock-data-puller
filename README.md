@@ -6,13 +6,12 @@ Features:
 - [X] Allow user to edit a config file to set defaults
 - [x] Pulls income statement, balance sheet, and cash flow for the company
 - [x] Puts into a data.xlsx Excel file to be read by other Excel files (such as one for a DCF)
-- [ ] Probably append data to an existing Excel file instead of making a new one and overwriting it
 - [ ] Scrape WACC and Yahoo Finance analyst numbers (currently just opens the websites to be manually grabbed)
 	- [X] Otherwise find a way to only open one finbox link (currently approximated with ticker length, can be improved)
-- [ ] Make my own DCF sheet (currently using a proprietary one)
 - [ ] Allow for more expense names as needed
 - [X] Allow for companies with no Cost of Revenue
-- [ ] Need to figure out how to get "Loss Adjustment Expense" expense (ex: ELV)
+- [X] Need to figure out how to get "Loss Adjustment Expense" expense (ex: ELV) (fixed in yfinance library)
 - [ ] Possibly change the way companies with less than 4 years of Yahoo finances are put into Excel
 - [ ] Split off all variables into separate sheets for the best variablility
 - [ ] Deal with removing NA values for each one individually
+- [ ] Make my own DCF sheet (currently using a proprietary one)
