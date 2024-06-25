@@ -16,9 +16,8 @@ Features:
 - [ ] Deal with removing NA values for each one individually
 - [ ] Make my own DCF sheet (currently using a proprietary one)
 
-Config file:
 With config.txt, you can set defaults and settings as the following:
-First line is a default ticker to pull if none is inputted, (default as MSFT)
-Second line is a default file location
-Third line is a default Y or N for whether to open web links (default Y)
-Fourth line is a Y or N to add a pause at the end of execution for debugging purposes (default N)
+- First line is a default ticker to pull if none is inputted, (default as MSFT)
+- Second line is a default file location
+- Third line is a default Y or N for whether to open web links (default Y)
+- Fourth line is a Y or N to add a pause at the end of execution for debugging purposes (default N)
