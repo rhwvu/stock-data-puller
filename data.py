@@ -28,15 +28,15 @@ writer = pd.ExcelWriter(path)
 # Put the three tables from before together, and transpose
 result = pd.concat([income, balance, cashflow])
 resultT = result.transpose()
+resultT = resultT[resultT["Total Revenue"].notna()]
 
 # List of stats of interest
-stat_list = ["Total Revenue", "Reconciled Depreciation", "Capital Expenditure", "Working Capital", "Cash Cash Equivalents And Short Term Investments"]
-expense_list = ["Research And Development", "Selling General And Administration", "Other Operating Expenses", "Loss Adjustment Expense", "Special Income Charges"]
+stat_list = ["Total Revenue", "Reconciled Depreciation", "Capital Expenditure", "Working Capital", "Cash Cash Equivalents And Short Term Investments", "Cash Cash Equivalents And Federal Funds Sold"]
+expense_list = ["Research And Development", "Selling General And Administration", "Other Operating Expenses", "Loss Adjustment Expense", "Occupancy And Equipment", "Other Non Interest Expense", "Professional Expense And Contract Services Expense"]
 debt_list = ["Current Debt And Capital Lease Obligation", "Long Term Debt And Capital Lease Obligation"]
 
 # Clean up results with the stat_list, drop empty years, then transpose again, sort by year
 clean = resultT[resultT.columns.intersection(stat_list)]
-clean = clean[clean["Total Revenue"].notna()]
 cleanT = clean.transpose()
 cleanT = cleanT.sort_index(axis=1, ascending=True)
 
@@ -56,6 +56,10 @@ other = resultT[resultT.columns.intersection(["Other Income Expense"])]
 otherT = other.transpose()
 otherT = otherT.sort_index(axis=1, ascending=True)
 
+special = resultT[resultT.columns.intersection(["Special Income Charges"])]
+specialT = special.transpose()
+specialT = specialT.sort_index(axis=1, ascending=True)
+
 # Write the three separate datasets to Excel sheets
 cleanT.to_excel(writer, sheet_name = "main")
 sheet1 = writer.sheets["main"]
@@ -72,6 +76,9 @@ sheet4 = writer.sheets["COGS"]
 otherT.to_excel(writer, sheet_name = "other")
 sheet4 = writer.sheets["other"]
 
+specialT.to_excel(writer, sheet_name = "special")
+sheet5 = writer.sheets["special"]
+
 # Put everything into a currency format in case user wants to read data.xlsx directly
 fmt_currency = writer.book.add_format({"num_format" : "$#,##0" ,"bold" :False})
 sheet1.set_column("A:A", 30)
@@ -85,6 +92,9 @@ sheet3.set_column("B:E", 20, fmt_currency)
 
 sheet4.set_column("A:A", 30)
 sheet4.set_column("B:E", 20, fmt_currency)
+
+sheet5.set_column("A:A", 30)
+sheet5.set_column("B:E", 20, fmt_currency)
 
 # Close ExcelWriter
 writer.close()
