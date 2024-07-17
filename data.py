@@ -32,7 +32,7 @@ resultT = resultT[resultT["Total Revenue"].notna()]
 
 # List of stats of interest
 stat_list = ["Total Revenue", "Reconciled Depreciation", "Capital Expenditure", "Working Capital", "Cash Cash Equivalents And Short Term Investments", "Cash Cash Equivalents And Federal Funds Sold"]
-expense_list = ["Research And Development", "Selling General And Administration", "Other Operating Expenses", "Loss Adjustment Expense", "Occupancy And Equipment", "Other Non Interest Expense", "Professional Expense And Contract Services Expense"]
+expense_list = ["Research And Development", "Selling General And Administration", "Other Operating Expenses", "Loss Adjustment Expense", "Occupancy And Equipment", "Other Non Interest Expense", "Professional Expense And Contract Services Expense", "Other Taxes"]
 debt_list = ["Current Debt And Capital Lease Obligation", "Long Term Debt And Capital Lease Obligation"]
 
 # Clean up results with the stat_list, drop empty years, then transpose again, sort by year
@@ -56,7 +56,7 @@ other = resultT[resultT.columns.intersection(["Other Income Expense"])]
 otherT = other.transpose()
 otherT = otherT.sort_index(axis=1, ascending=True)
 
-special = resultT[resultT.columns.intersection(["Special Income Charges"])]
+special = resultT[resultT.columns.intersection(["Special Income Charges", "Other Special Charges"])]
 specialT = special.transpose()
 specialT = specialT.sort_index(axis=1, ascending=True)
 
