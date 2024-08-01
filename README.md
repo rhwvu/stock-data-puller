@@ -1,6 +1,9 @@
 # stock-data-puller
 Pulls stock data from Yahoo Finance with the yfinance API to be used in a Discounted Cash Flow (DCF)
 
+NOTE: This repo requires the pandas and yfinance packages, and while the pandas version is likely flexible,
+	having yfinance 0.2.41 or above is important.
+
 Features:
 - [x] Gets ticker from user
 - [X] Allow user to edit a config file to set default settings
