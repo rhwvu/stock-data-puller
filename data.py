@@ -34,7 +34,7 @@ resultT = result.transpose()
 resultT = resultT[resultT["Total Revenue"].notna()]
 resultT = resultT.sort_index(axis=1, ascending=True)
 
-# Drop unneeded revenue stats, drop empty growth estimates, and transpose
+# Drop empty growth estimates, drop unneeded revenue stats, and transpose
 growth = growth[growth["growth"].notna()]
 growth = growth["growth"]
 growthT = growth.transpose()
