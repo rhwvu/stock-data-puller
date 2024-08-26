@@ -15,6 +15,9 @@ income = stock.income_stmt
 balance = stock.balance_sheet
 cashflow = stock.cashflow
 
+# Get revenue growth estimates from analysis
+growth = stock.revenue_estimate
+
 # Get path from config[1], make file called data.xlsx
 path_in = config[1].strip()
 path = path_in + "data.xlsx"
@@ -31,6 +34,11 @@ resultT = result.transpose()
 resultT = resultT[resultT["Total Revenue"].notna()]
 resultT = resultT.sort_index(axis=1, ascending=True)
 
+# Drop unneeded revenue stats, drop empty growth estimates, and transpose
+growth = growth[growth["growth"].notna()]
+growth = growth["growth"]
+growthT = growth.transpose()
+
 # List of stats of interest
 stat_list = ["Total Revenue", "Cost Of Revenue", "Reconciled Depreciation", "Capital Expenditure",
     "Working Capital", "Cash Cash Equivalents And Short Term Investments", "Cash Cash Equivalents And Federal Funds Sold",
@@ -39,30 +47,38 @@ stat_list = ["Total Revenue", "Cost Of Revenue", "Reconciled Depreciation", "Cap
     "Professional Expense And Contract Services Expense", "Other Taxes", "Current Debt And Capital Lease Obligation",
     "Long Term Debt And Capital Lease Obligation", "Special Income Charges", "Other Special Charges"]
 
-# Clean up results with stat_list and transpose again
-clean = resultT.reindex(columns=stat_list).fillna(0)
+# Clean up results with stat_list and transpose again (while avoiding an unhelpful pandas FutureWarning)
+with pd.option_context("future.no_silent_downcasting", True):
+    clean = resultT.reindex(columns=stat_list).fillna(0).infer_objects(copy=False)
 cleanT = clean.transpose()
 
-# Write the dataset to a sheet in data.xlsx
+# Write the main dataset to a sheet in data.xlsx
 cleanT.to_excel(writer, sheet_name = "data")
-sheet = writer.sheets["data"]
+main_sheet = writer.sheets["data"]
 
-# Put into a currency format in case user wants to read data.xlsx directly
+# Write the growth estimate data to a separate sheet in data.xlsx
+growthT.to_excel(writer, sheet_name = "growth")
+growth_sheet = writer.sheets["growth"]
+
+# Put main data into a currency format in case user wants to read data.xlsx directly
 fmt_currency = writer.book.add_format({"num_format" : "$#,##0" ,"bold" :False})
-sheet.set_column("A:A", 30)
-sheet.set_column("B:E", 20, fmt_currency)
+main_sheet.set_column("A:A", 30)
+main_sheet.set_column("B:E", 20, fmt_currency)
+
+# Put growth estimate data into a percentage format
+fmt_percent = writer.book.add_format({"num_format": "0.0%"})
+growth_sheet.set_column("B:B", 10, fmt_percent)
+
 
 # Close ExcelWriter
 writer.close()
 
-# Concat URLs for websites to be opened
-analysis_link = "https://finance.yahoo.com/quote/" + ticker + "/analysis/"
+# Concatenate URLs for websites to be opened
 WACC_NASDAQ = "https://finbox.com/NASDAQGS:" + ticker + "/models/wacc/"
 WACC_NYSE = "https://finbox.com/NYSE:" + ticker + "/models/wacc/"
 
 # If user wants to open websites, open them
 if open_browser == "Y":
-    webbrowser.open(analysis_link)
     # Ticker length being 4 or above is usually able to check whether a stock is in NASDAQ or NYSE
     if len(ticker) >= 4:
         webbrowser.open(WACC_NASDAQ)

@@ -2,15 +2,16 @@
 Pulls stock data from Yahoo Finance with the yfinance API to be used in a Discounted Cash Flow (DCF)
 
 NOTE: This repo requires the pandas and yfinance packages, and while the pandas version is likely flexible,
-	having yfinance 0.2.41 or above is important.
+	having yfinance 0.2.42 or above is important.
 
 Features:
 - [x] Gets ticker from user
 - [X] Allow user to edit a config file to set default settings
 - [x] Pulls income statement, balance sheet, and cash flow for the ticker's company
 - [x] Puts into a data.xlsx Excel file to be read by other Excel files (such as one for a DCF)
-- [ ] Scrape WACC and Yahoo Finance analyst numbers (currently just opens the websites to be manually grabbed)
-	- [ ] Otherwise find a way to get an exchange for ticker (exchange currently approximated with ticker length, can be improved)
+- [ ] Scrape WACC (currently just opens the websites to be manually grabbed)
+	- [ ] Otherwise find a way to get an exchange for ticker (exchange currently guessed with ticker length, can be improved)
+- [X] Get Yahoo revenue growth numbers (added to yfinance)
 - [X] Deals with many individual companies' different expense categorizations
 - [ ] Make DCF sheet to go with the project (I'm currently using a proprietary one)
 
