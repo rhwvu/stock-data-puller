@@ -11,7 +11,7 @@ Features:
 - [x] Puts into a data.xlsx Excel file to be read by other Excel files (such as one for a DCF)
 - [ ] Scrape WACC (currently just opens the websites to be manually grabbed)
 	- [ ] Otherwise find a way to get an exchange for ticker (exchange currently guessed with ticker length, can be improved)
-- [X] Get Yahoo revenue growth numbers (added to yfinance)
+- [X] Gets Yahoo revenue growth numbers (added to yfinance)
 - [X] Deals with many individual companies' different expense categorizations
 - [ ] Make DCF sheet to go with the project (I'm currently using a proprietary one)
 
