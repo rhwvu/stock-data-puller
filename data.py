@@ -15,6 +15,9 @@ income = stock.income_stmt
 balance = stock.balance_sheet
 cashflow = stock.cashflow
 
+# Get history metadata for exchange name
+meta = stock.history_metadata
+
 # Get revenue growth estimates from analysis
 growth = stock.revenue_estimate
 
@@ -73,17 +76,15 @@ growth_sheet.set_column("B:B", 10, fmt_percent)
 # Close ExcelWriter
 writer.close()
 
+# Get exchange name from history metadata
+exchange = meta["fullExchangeName"].strip().upper()
+
 # Concatenate URLs for websites to be opened
-WACC_NASDAQ = "https://finbox.com/NASDAQGS:" + ticker + "/models/wacc/"
-WACC_NYSE = "https://finbox.com/NYSE:" + ticker + "/models/wacc/"
+WACC_link = "https://finbox.com/" + exchange + ":" + ticker + "/models/wacc/"
 
 # If user wants to open websites, open them
 if open_browser == "Y":
-    # Ticker length being 4 or above is usually able to check whether a stock is in NASDAQ or NYSE
-    if len(ticker) >= 4:
-        webbrowser.open(WACC_NASDAQ)
-    else:
-        webbrowser.open(WACC_NYSE)
+    webbrowser.open(WACC_link)
         
 # config[3] allows for errors to be read after run complete
 if config[3].strip().upper() == "Y":

@@ -9,8 +9,7 @@ Features:
 - [X] Allow user to edit a config file to set default settings
 - [x] Pulls income statement, balance sheet, and cash flow for the ticker's company
 - [x] Puts into a data.xlsx Excel file to be read by other Excel files (such as one for a DCF)
-- [ ] Scrape WACC (currently just opens the websites to be manually grabbed)
-	- [ ] Otherwise find a way to get an exchange for ticker (exchange currently guessed with ticker length, can be improved)
+- [ ] Scrape WACC (currently opens a good website to be manually copied)
 - [X] Gets Yahoo revenue growth numbers (added to yfinance)
 - [X] Deals with many individual companies' different expense categorizations
 - [ ] Make DCF sheet to go with the project (I'm currently using a proprietary one)
