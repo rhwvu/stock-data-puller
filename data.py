@@ -31,11 +31,10 @@ open_browser = input("Open websites? Y or N: ").strip().upper() or config[2].str
 # Make ExcelWriter
 writer = pd.ExcelWriter(path)
 
-# Put the three tables together, transpose, drop empty years, and sort by year
+# Put the three tables together, transpose, drop empty years
 result = pd.concat([income, balance, cashflow])
 resultT = result.transpose()
 resultT = resultT[resultT["Total Revenue"].notna()]
-resultT = resultT.sort_index(axis=1, ascending=True)
 
 # Drop empty growth estimates, drop unneeded revenue stats, and transpose
 growth = growth[growth["growth"].notna()]
@@ -50,10 +49,11 @@ stat_list = ["Total Revenue", "Cost Of Revenue", "Reconciled Depreciation", "Cap
     "Professional Expense And Contract Services Expense", "Other Taxes", "Current Debt And Capital Lease Obligation",
     "Long Term Debt And Capital Lease Obligation", "Special Income Charges", "Other Special Charges"]
 
-# Clean up results with stat_list and transpose again (while avoiding an unhelpful pandas FutureWarning)
+# Clean up results with stat_list, transpose again (while avoiding an unhelpful pandas FutureWarning), and sort by year
 with pd.option_context("future.no_silent_downcasting", True):
     clean = resultT.reindex(columns=stat_list).fillna(0).infer_objects(copy=False)
 cleanT = clean.transpose()
+cleanT = cleanT.sort_index(axis=1, ascending=True)
 
 # Write the main dataset to a sheet in data.xlsx
 cleanT.to_excel(writer, sheet_name = "data")
