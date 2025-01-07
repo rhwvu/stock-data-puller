@@ -1,2 +1,2 @@
-pandas==2.2.2
-yfinance==0.2.44
+pandas==2.2.3
+yfinance==0.2.51
