@@ -72,7 +72,6 @@ main_sheet.set_column("B:E", 20, fmt_currency)
 fmt_percent = writer.book.add_format({"num_format": "0.0%"})
 growth_sheet.set_column("B:B", 10, fmt_percent)
 
-
 # Close ExcelWriter
 writer.close()
 
