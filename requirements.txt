@@ -1,2 +1,2 @@
 pandas==2.2.3
-yfinance==0.2.51
+yfinance==0.2.54
